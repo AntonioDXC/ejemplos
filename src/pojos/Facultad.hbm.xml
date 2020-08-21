@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18/11/2018 08:37:36 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Facultad" table="FACULTAD" schema="A4102" optimistic-lock="version">
+        <id name="codUniversidad" type="int">
+            <column name="COD_UNIVERSIDAD" />
+            <generator class="foreign">
+                <param name="property">universidad</param>
+            </generator>
+        </id>
+        <one-to-one name="universidad" class="pojos.Universidad" constrained="true"></one-to-one>
+        <property name="codFacultad" type="int">
+            <column name="COD_FACULTAD" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="100" />
+        </property>
+        <set name="carreras" table="CARRERA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_UNIVERSIDAD" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Carrera" />
+        </set>
+    </class>
+</hibernate-mapping>
